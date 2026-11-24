@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BizNest — Your Business. Your Website. Your Digital Identity.</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOP NAVIGATION -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo" onclick="showView('home')">BizNest</div>
+      <div class="nav-links" id="navLinks"></div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- 1. LANDING / HOME VIEW -->
+    <section id="view-home" class="view active">
+      <div class="hero">
+        <span class="hero-tag">Zero-Code Digital Identity for Local Businesses</span>
+        <h1>Your Business. Your Website. Your Digital Identity.</h1>
+        <p>Create a mobile-ready business profile, showcase your products &amp; prices, receive customer enquiries, and get listed in the BizNest local directory in under 2 minutes.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button onclick="showView('register')">Create Free Account</button>
+          <button class="ghost" onclick="showView('directory')">Explore Businesses</button>
+          <button class="ghost" onclick="openStorefrontById('demo')">Demo Storefront</button>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Register &amp; Customize</h3>
+          <p class="muted">Sign up with your business details, pick your brand accent color, and list your products or services with transparent pricing.</p>
+        </div>
+        <div class="card">
+          <h3>2. Instant Storefront &amp; Directory</h3>
+          <p class="muted">Get a clean, customer-ready page with direct WhatsApp chat and automatic listing in the BizNest directory.</p>
+        </div>
+        <div class="card">
+          <h3>3. Track Leads &amp; Views</h3>
+          <p class="muted">Monitor profile views, QR scans, and customer enquiries right from your owner dashboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT & FAQ VIEW -->
+    <section id="view-about" class="view">
+      <div class="card" style="margin-bottom: 24px;">
+        <span class="badge-pill">About BizNest</span>
+        <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Empowering Local Businesses to Go Digital</h2>
+        <p class="muted" style="margin-bottom: 14px;">
+          Thousands of local shops, tutors, cafés, clinics, and independent service providers rely purely on word-of-mouth because building and maintaining a traditional website is expensive and technical.
+        </p>
+        <p class="muted">
+          <strong>BizNest</strong> solves this by giving every small business an instant digital storefront, product catalog, WhatsApp enquiry button, and local directory presence—with zero coding required.
+        </p>
+      </div>
+
+      <h3 style="margin-bottom: 12px;">Frequently Asked Questions</h3>
+      <details open>
+        <summary>Is BizNest free to use?</summary>
+        <p>Yes. Creating an account, setting up your business profile, listing products/services, and receiving customer enquiries are completely free.</p>
+      </details>
+      <details>
+        <summary>How do customers contact my business?</summary>
+        <p>Customers can either message you directly on WhatsApp with one tap from your storefront or submit an enquiry form that goes straight to your Owner Dashboard inbox.</p>
+      </details>
+      <details>
+        <summary>Where is my data stored?</summary>
+        <p>In this standalone edition, all accounts, business profiles, catalogs, and customer enquiries are saved directly in your browser's local storage so it works offline without external servers.</p>
+      </details>
+    </section>
+
+    <!-- 3. EXPLORE DIRECTORY VIEW -->
+    <section id="view-directory" class="view">
+      <div class="dash-header">
+        <div>
+          <h2>Explore Local Businesses</h2>
+          <p class="muted">Browse registered businesses on BizNest and visit their storefronts.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 20px;">
+        <input type="text" id="dirSearch" placeholder="Search by business name, category, or city..." oninput="renderDirectory()" />
+      </div>
+
+      <div class="grid-3" id="directoryGrid"></div>
+    </section>
+
+    <!-- 4. LOGIN VIEW -->
+    <section id="view-login" class="view">
+      <div class="auth-box">
+        <h2>Welcome Back</h2>
+        <p class="muted">Log in to manage your BizNest profile.</p>
+        <form id="loginForm">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@business.com" required />
+
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required />
+
+          <button type="submit" style="width: 100%; margin-top: 18px;">Log In</button>
+          <div id="loginAlert" class="alert"></div>
+        </form>
+        <p class="muted" style="margin-top: 16px; text-align: center;">
+          Don't have an account? <a href="#" onclick="showView('register'); return false;" style="color: var(--accent); font-weight: 600;">Register here</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 5. REGISTER VIEW -->
+    <section id="view-register" class="view">
+      <div class="auth-box">
+        <h2>Create Your Account</h2>
+        <p class="muted">Launch your digital business page in minutes.</p>
+        <form id="registerForm">
+          <label for="regOwner">Your Full Name</label>
+          <input type="text" id="regOwner" placeholder="e.g. Sourav Verma" required />
+
+          <label for="regBizName">Business Name</label>
+          <input type="text" id="regBizName" placeholder="e.g. Verma Electronics & Repairs" required />
+
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" placeholder="you@business.com" required />
+
+          <label for="regPassword">Password (min 4 chars)</label>
+          <input type="password" id="regPassword" minlength="4" placeholder="Create a password" required />
+
+          <button type="submit" style="width: 100%; margin-top: 18px;">Create Account &amp; Open Dashboard</button>
+          <div id="registerAlert" class="alert"></div>
+        </form>
+        <p class="muted" style="margin-top: 16px; text-align: center;">
+          Already registered? <a href="#" onclick="showView('login'); return false;" style="color: var(--accent); font-weight: 600;">Log in</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 6. OWNER DASHBOARD VIEW -->
+    <section id="view-dashboard" class="view">
+      <div class="dash-header">
+        <div>
+          <h2 id="dashWelcome">Owner Dashboard</h2>
+          <p class="muted">Manage your public profile, products, and enquiries.</p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="secondary" onclick="openMyStorefront()">Preview My Public Page</button>
+          <button class="ghost" onclick="exportBackup()">Export JSON</button>
+          <button class="ghost" onclick="logout()">Log Out</button>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <strong id="statViews">0</strong>
+          <span class="muted">Profile Views</span>
+        </div>
+        <div class="stat-card">
+          <strong id="statQr">0</strong>
+          <span class="muted">QR Scans</span>
+        </div>
+        <div class="stat-card">
+          <strong id="statEnquiries">0</strong>
+          <span class="muted">Enquiries</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Edit Business Details</h3>
+          <form id="profileForm">
+            <label>Business Name *</label>
+            <input id="pName" required />
+
+            <label>Category</label>
+            <input id="pCategory" placeholder="e.g. Café, Salon, Electronics, Tuition" />
+
+            <label>Tagline</label>
+            <input id="pTagline" placeholder="Short description of what you offer" />
+
+            <label>WhatsApp / Phone (with country code)</label>
+            <input id="pPhone" placeholder="e.g. 919876543210" />
+
+            <label>Address / Location</label>
+            <input id="pLocation" placeholder="e.g. Mohali, Punjab" />
+
+            <label>Opening Hours</label>
+            <input id="pHours" placeholder="e.g. Mon–Sun, 8:00 AM – 10:00 PM" />
+
+            <label>UPI ID (for payments)</label>
+            <input id="pUpi" placeholder="e.g. bizname@okicici" />
+
+            <label>Brand Color</label>
+            <select id="pTheme">
+              <option value="#047857">Deep Emerald</option>
+              <option value="#4f46e5">Indigo</option>
+              <option value="#0f172a">Midnight Navy</option>
+              <option value="#059669">Emerald Green</option>
+              <option value="#d97706">Warm Amber</option>
+              <option value="#e11d48">Crimson Rose</option>
+              <option value="#0284c7">Ocean Blue</option>
+            </select>
+
+            <button type="submit" style="margin-top: 16px;">Save Business Profile</button>
+            <div id="profileAlert" class="alert"></div>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3>Products &amp; Services Catalog</h3>
+          <form id="itemForm">
+            <label>Item or Service Name *</label>
+            <input id="itemName" placeholder="e.g. Screen Replacement" required />
+
+            <label>Price (₹)</label>
+            <input id="itemPrice" placeholder="e.g. ₹1,200" />
+
+            <button type="submit" style="margin-top: 12px;">+ Add to Catalog</button>
+          </form>
+
+          <div id="dashItemsList" style="margin-top: 16px;"></div>
+
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border);" />
+          <h3>Counter QR Scan Simulator</h3>
+          <p class="muted" style="margin-bottom: 10px;">Test your QR scan analytics counter.</p>
+          <button type="button" class="ghost" onclick="simulateQrScan()">Simulate QR Scan (+1)</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Customer Enquiries Inbox</h3>
+        <div id="dashEnquiriesList" style="margin-top: 10px;"></div>
+      </div>
+    </section>
+
+    <!-- 7. PUBLIC STOREFRONT VIEW -->
+    <section id="view-storefront" class="view">
+      <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <button class="ghost" onclick="showView('directory')">← All Businesses</button>
+        <button class="ghost" id="backToDashBtn" onclick="showView('dashboard')">My Dashboard</button>
+      </div>
+
+      <div class="store-banner" id="storeBanner">
+        <span id="sCategory" style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700;">Local Business</span>
+        <h1 id="sName" style="margin-top: 10px; font-size: 2rem;">Business Name</h1>
+        <p id="sTagline" style="opacity: 0.92; margin-top: 6px;">Tagline goes here</p>
+        <p id="sLocation" style="opacity: 0.88; font-size: 0.9rem; margin-top: 8px;"></p>
+        <p id="sHours" style="opacity: 0.88; font-size: 0.9rem; margin-top: 4px;"></p>
+        <p id="sUpi" style="opacity: 0.92; font-size: 0.9rem; margin-top: 4px; font-weight: 600;"></p>
+        <div id="sWhatsappWrap" style="margin-top: 16px;"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Our Products &amp; Services</h3>
+          <div id="sItemsList" style="margin-top: 10px;"></div>
+        </div>
+
+        <div class="card">
+          <h3>Send an Enquiry</h3>
+          <p class="muted">Have a question or want to book? Message the business directly.</p>
+          <form id="customerEnquiryForm">
+            <label>Your Name *</label>
+            <input id="cName" placeholder="Enter your name" required />
+
+            <label>Phone or Email *</label>
+            <input id="cContact" placeholder="e.g. +91 98765 00000" required />
+
+            <label>Message *</label>
+            <textarea id="cMsg" rows="3" placeholder="Hi, I would like to know more about..." required></textarea>
+
+            <button type="submit" style="margin-top: 14px;">Submit Enquiry</button>
+            <div id="cAlert" class="alert"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    BizNest Platform • Pure HTML, CSS &amp; JavaScript • Your Business. Your Digital Identity.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
